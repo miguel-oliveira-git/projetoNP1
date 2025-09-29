@@ -12,21 +12,42 @@ const Header = styled.header`
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
+  
+  @media (max-width: 768px) {
+    flex-direction: column; 
+    align-items: flex-start; 
+    padding: 15px 10px;
+  }
 `;
 
 const NavLinks = styled.nav`
   display: flex;
   align-items: center;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10px;
+  }
 `;
 
 const HeaderLeft = styled.div`
   display: flex;
   align-items: center;
+  
+  @media (max-width: 768px) {
+    margin-bottom: 10px;
+  }
 `;
 
 const HeaderRight = styled.div`
   display: flex;
   align-items: center;
+  
+  @media (max-width: 768px) {
+    width: 100%;
+    justify-content: center;
+  }
 `;
 
 const Botoes = styled.a`
@@ -44,6 +65,22 @@ const Botoes = styled.a`
   color: #f3c46e;
   border-bottom: 2px solid #f3c46e;
   }
+  
+  @media (max-width: 480px) {
+    margin: 5px 0;
+    padding: 8px 15px;
+    width: 100%; 
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+    
+    &:last-child {
+      border-bottom: none;
+    }
+    
+    &:hover {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+  }
 `;
 
 const Logo = styled.img`
@@ -53,21 +90,26 @@ const Logo = styled.img`
   margin-right: 15px;
 `;
 
-const NomePagina = styled.h1`
+const NomePaginaStyled = styled.h1`
   display: flex;
   justify-content: center;
+  text-align: center;
+  padding: 20px 10px;
+  width: 100%;
 `;
 
 const Card = styled.div`
-  width: 300px;
+  width: 100%; 
+  max-width: 320px; 
   padding: 20px;
+  margin: 10px; 
   border-radius: 12px;
   box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
   text-align: center;
   background-color: #fff;
   font-family: Arial, sans-serif;
-  flex-wrap: wrap;
 `;
+
 const Avatar = styled.img`
   width: 150px;
   height: 150px;
@@ -75,12 +117,7 @@ const Avatar = styled.img`
   display: flex;
   object-fit: cover;
 `;
-const CardContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-`
+
 const NomeTime = styled.p`
   font-size: 16px;
   color: #333;
@@ -108,10 +145,12 @@ const Rodape = styled.footer`
   color: white;
   padding: 20px;
   text-align: center;
+  margin-top: 40px; 
 `;
+
 const H2Rodape = styled.h2`
   color: white;
-`
+`;
 
 const ContatosContainer = styled.div`
   display: flex;
@@ -120,6 +159,10 @@ const ContatosContainer = styled.div`
   flex-wrap: wrap;
   gap: 40px;
   margin: 20px 0;
+  
+  @media (max-width: 480px) {
+    gap: 20px; 
+  }
 `;
 
 const CopyrightContainer = styled.div`
@@ -135,6 +178,39 @@ const LogosRedes = styled.img`
   height: 40px;
 `;
 
+const HomeContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 40px 20px;
+  min-height: 70vh; /* Garante que a página ocupe a maior parte da tela */
+  justify-content: center;
+
+  h1 {
+    font-size: 2.5em;
+    color: #2C3E50;
+    margin-bottom: 20px;
+  }
+
+  p {
+    font-size: 1.2em;
+    color: #555;
+    margin-bottom: 30px;
+    max-width: 600px;
+  }
+  
+  @media (max-width: 600px) {
+    padding: 30px 10px;
+    h1 {
+      font-size: 2em;
+    }
+    p {
+      font-size: 1em;
+    }
+  }
+`;
+
 export function Cabecalho({ src, alt, nomeSite, onNavigate }) {
   return (
     <Header>
@@ -144,6 +220,8 @@ export function Cabecalho({ src, alt, nomeSite, onNavigate }) {
       </HeaderLeft>
       <HeaderRight>
         <NavLinks>
+          {}
+          <Botoes onClick={() => onNavigate('home')}>Início</Botoes>
           <Botoes onClick={() => onNavigate('cadastro')}>Cadastrar Time</Botoes>
           <Botoes onClick={() => onNavigate('times')}>Ver Times</Botoes>
           <Botoes>Login</Botoes>
@@ -153,23 +231,31 @@ export function Cabecalho({ src, alt, nomeSite, onNavigate }) {
   );
 }
 
-export function Corpo({ nomePagina, srcAvatar, altAvatar, nomeTime }) {
+export function Corpo({ srcAvatar, altAvatar, nomeTime }) {
   return (
-    <div>
-      <NomePagina>
-        {nomePagina}
-      </NomePagina>
-      <CardContainer>
-        <Card>
-          <Avatar src={srcAvatar} alt={altAvatar}></Avatar>
-          <NomeTime>
-            {nomeTime}
-          </NomeTime>
-          <BotaoPortfolio>Ver Mais</BotaoPortfolio>
-        </Card>
-      </CardContainer>
-    </div>
+    <Card>
+      <Avatar src={srcAvatar} alt={altAvatar}></Avatar>
+      <NomeTime>
+        {nomeTime}
+      </NomeTime>
+      <BotaoPortfolio>Ver Mais</BotaoPortfolio>
+    </Card>
   );
+}
+
+export function HomeContent({ onNavigate }) {
+  return (
+    <HomeContainer>
+      <h1>Bem-vindo ao My Club FC</h1>
+      <p>Gerencie seus times de futebol de forma simples e eficiente. Cadastre, visualize e organize todos os seus clubes em um só lugar.</p>
+      {}
+      <BotaoPortfolio onClick={() => onNavigate('cadastro')}>Cadastre seu Primeiro Time!</BotaoPortfolio>
+    </HomeContainer>
+  );
+}
+
+export function NomePagina({ children }) {
+  return <NomePaginaStyled>{children}</NomePaginaStyled>;
 }
 
 export function RodapeTodo({ instagramIcon, facebookIcon, emailIcon, phoneIcon }) {

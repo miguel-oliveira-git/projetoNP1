@@ -7,6 +7,7 @@ function App() {
       <FormComponent />
     </div>
   );
+  
 }
 
 export default App;
